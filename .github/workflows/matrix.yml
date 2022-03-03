@@ -2,7 +2,7 @@ name: Build
 on:
     push:
       branches:
-        - cuda-10
+        - master
     pull_request:
     release:
         types: [published]
@@ -65,8 +65,8 @@ jobs:
         run: |
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA=10.1.243-1
-          CUDA_SHORT=10.1.243-1
+          CUDA=11.6.1-1
+          CUDA_SHORT=11.6.1-1
           UBUNTU_VERSION=ubuntu1804
           INSTALLER=cuda-repo-${UBUNTU_VERSION}_${CUDA}_amd64.deb
           wget http://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/${INSTALLER}
@@ -124,14 +124,14 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build
           if [[ "${LABEL}" != "aarch64" ]]; then strip zentcashminer; fi
-          rm -rf zentcashminer-cuda-10-${LABEL}-${TAG}
-          mkdir zentcashminer-cuda-10-${LABEL}-${TAG}
-          cp -r zentcashminer ../README.md zentcashminer-cuda-10-${LABEL}-${TAG}/
-          tar cvfz zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-10-${LABEL}-${TAG}
+          rm -rf zentcashminer-cuda-11-${LABEL}-${TAG}
+          mkdir zentcashminer-cuda-11-${LABEL}-${TAG}
+          cp -r zentcashminer ../README.md zentcashminer-cuda-11-${LABEL}-${TAG}/
+          tar cvfz zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-11-${LABEL}-${TAG}
           ls
           pwd
-          echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz
-          echo ::set-output name=binary_name::zentcashminer-cuda-10-${LABEL}-${TAG}
+          echo ::set-output name=file_name::zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz
+          echo ::set-output name=binary_name::zentcashminer-cuda-11-${LABEL}-${TAG}
 
       - name: Upload to GH Release
         if: github.event_name == 'release' && github.repository == 'ZentCashDevelopers/zentcashminer' && matrix.deployable
@@ -196,14 +196,14 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build
           if [[ "${LABEL}" != "aarch64" ]]; then strip zentcashminer; fi
-          rm -rf zentcashminer-cuda-10-${LABEL}-${TAG}
-          mkdir zentcashminer-cuda-10-${LABEL}-${TAG}
-          cp -r zentcashminer ../README.md zentcashminer-cuda-10-${LABEL}-${TAG}
-          tar cvfz zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-10-${LABEL}-${TAG}
+          rm -rf zentcashminer-cuda-11-${LABEL}-${TAG}
+          mkdir zentcashminer-cuda-11-${LABEL}-${TAG}
+          cp -r zentcashminer ../README.md zentcashminer-cuda-11-${LABEL}-${TAG}
+          tar cvfz zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-11-${LABEL}-${TAG}
           pwd
           ls
-          echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz
-          echo ::set-output name=binary_name::zentcashminer-cuda-10-${LABEL}-${TAG}
+          echo ::set-output name=file_name::zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz
+          echo ::set-output name=binary_name::zentcashminer-cuda-11-${LABEL}-${TAG}
 
       - name: Upload to GH Release
         if: github.event_name == 'release' && github.repository == 'ZentCashDevelopers/zentcashminer'
@@ -243,7 +243,7 @@ jobs:
       - name: Install CUDA
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          choco install cuda --version=10.2.89.20191206
+          choco install cuda --version=11.6.0.51123
           refreshenv
 
       - name: Install OpenSSL
@@ -254,7 +254,7 @@ jobs:
 
       - name: Compile
         run: |         
-          copy 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\extras\visual_studio_integration\MSBuildExtensions\*' 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations'
+          copy 'C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.6\extras\visual_studio_integration\MSBuildExtensions\*' 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations'
           ./scripts/win-install.bat
 
       - name: Prepare for Deploy
@@ -266,12 +266,12 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build
           cd Release
-          rm -rf zentcashminer-cuda-10-${LABEL}-${TAG}
-          mkdir zentcashminer-cuda-10-${LABEL}-${TAG}
-          cp -r zentcashminer.exe ../../README.md zentcashminer-cuda-10-${LABEL}-${TAG}
-          7z a zentcashminer-cuda-10-${LABEL}-${TAG}.zip zentcashminer-cuda-10-${LABEL}-${TAG}
-          echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.zip
-          echo ::set-output name=binary_name::zentcashminer-cuda-10-${LABEL}-${TAG}
+          rm -rf zentcashminer-cuda-11-${LABEL}-${TAG}
+          mkdir zentcashminer-cuda-11-${LABEL}-${TAG}
+          cp -r zentcashminer.exe ../../README.md zentcashminer-cuda-11-${LABEL}-${TAG}
+          7z a zentcashminer-cuda-11-${LABEL}-${TAG}.zip zentcashminer-cuda-11-${LABEL}-${TAG}
+          echo ::set-output name=file_name::zentcashminer-cuda-11-${LABEL}-${TAG}.zip
+          echo ::set-output name=binary_name::zentcashminer-cuda-11-${LABEL}-${TAG}
 
       - name: Upload to GH Release
         if: github.event_name == 'release' && github.repository == 'ZentCashDevelopers/zentcashminer'
