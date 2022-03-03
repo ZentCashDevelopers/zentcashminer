@@ -65,7 +65,7 @@ jobs:
         run: |
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA=11.6.1-1
+          CUDA=11.6.55-1
           CUDA_SHORT=11-6
           UBUNTU_VERSION=ubuntu1804
           INSTALLER=cuda-${CUDA_SHORT}_${CUDA}_amd64.deb
