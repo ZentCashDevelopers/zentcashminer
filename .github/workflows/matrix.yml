@@ -65,14 +65,10 @@ jobs:
         run: |
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA=11.6.55-1
-          CUDA_SHORT=11-6
-          UBUNTU_VERSION=ubuntu1804
-          INSTALLER=cuda-command-line-tools-11-6_11.6.1-1_amd64.deb
-          wget http://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/${INSTALLER}
+          INSTALLER=cuda-repo-ubuntu1804-11-6-local_11.6.1-510.47.03-1_amd64.deb
+          wget https://developer.download.nvidia.com/compute/cuda/11.6.1/local_installers/${INSTALLER}
           sudo dpkg -i ${INSTALLER}
-          wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/7fa2af80.pub
-          sudo apt-key add 7fa2af80.pub
+          sudo apt-key add /var/cuda-repo-ubuntu1804-11-6-local/7fa2af80.pub
           sudo apt update -qq
           sudo apt install -y cuda
           sudo apt clean
