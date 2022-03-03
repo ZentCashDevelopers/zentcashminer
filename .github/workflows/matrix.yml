@@ -124,10 +124,10 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build
           if [[ "${LABEL}" != "aarch64" ]]; then strip zentcashminer; fi
-          rm -rf zentcashminer-${LABEL}-${TAG}
-          mkdir zentcashminer-${LABEL}-${TAG}
-          cp -r zentcashminer ../README.md zentcashminer-${LABEL}-${TAG}/
-          tar cvfz zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz zentcashminer-${LABEL}-${TAG}
+          rm -rf zentcashminer-cuda-10-${LABEL}-${TAG}
+          mkdir zentcashminer-cuda-10-${LABEL}-${TAG}
+          cp -r zentcashminer ../README.md zentcashminer-cuda-10-${LABEL}-${TAG}/
+          tar cvfz zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-10-${LABEL}-${TAG}
           ls
           pwd
           echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz
