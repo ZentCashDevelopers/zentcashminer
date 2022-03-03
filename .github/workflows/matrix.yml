@@ -2,7 +2,7 @@ name: Build
 on:
     push:
       branches:
-        - main
+        - cuda-11
     pull_request:
     release:
         types: [published]
