@@ -1,0 +1,30 @@
+option(ANDROID_CROSS_COMPILE "Build with android NDK" OFF)
+
+# Add an executable called zentcashminer with main.cpp as the entrypoint
+add_executable(zentcashminer main.cpp GetConfig.cpp)
+
+if (OPENSSL_FOUND)
+    target_link_libraries(zentcashminer ${OPENSSL_LIBRARIES})
+
+    if (MSVC)
+        target_link_libraries(zentcashminer ws2_32 gdi32 advapi32 crypt32 user32)
+    endif()
+endif()
+
+# Link zentcashminer to the libraries it uses
+target_link_libraries(zentcashminer
+    ArgonVariants
+    Argon2
+    Backend
+    Blake2
+    Config
+    MinerManager
+    PoolCommunication
+    Types
+    Utilities)
+
+# Need to link against pthreads on non windows
+if (NOT MSVC AND NOT ANDROID_CROSS_COMPILE)
+    find_package(Threads REQUIRED)
+    target_link_libraries(zentcashminer Threads::Threads)
+endif()
