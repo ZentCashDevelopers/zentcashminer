@@ -230,13 +230,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: |
-            C:\Program Files\NVIDIA GPU Computing Toolkit\
-          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-
       - name: Fetch submodules
         run: git submodule update --init --recursive
 
