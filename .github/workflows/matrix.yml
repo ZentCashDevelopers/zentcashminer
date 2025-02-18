@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add more compilers here if you need them
-        build_name: ['Ubuntu GCC 9', 'Ubuntu GCC 10', 'Ubuntu Clang 9', 'aarch64']
+        build_name: ['Ubuntu GCC 9', 'Ubuntu GCC 10', 'Ubuntu Clang 11', 'aarch64']
         include:
           - build_name: 'Ubuntu GCC 9'
             package_name: 'gcc-9 g++-9'
@@ -33,11 +33,11 @@ jobs:
             cxx: g++-10
             label: linux
             deployable: true
-          - build_name: 'Ubuntu Clang 9'
-            package_name: 'clang-9'
-            cc: clang-9
-            cxx: clang++-9
-            label: linux-clang-9
+          - build_name: 'Ubuntu Clang 11'
+            package_name: 'clang-11'
+            cc: clang-11
+            cxx: clang++-11
+            label: linux-clang-11
             deployable: false
           - build_name: 'aarch64'
             label: aarch64
@@ -80,7 +80,7 @@ jobs:
           CUDACXX: '/usr/local/cuda/bin/nvcc'
         run: |
           mkdir build && cd build
-          cmake -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc ..
+          cmake -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc -DCMAKE_BUILD_TYPE=Release -DSTATIC=true ..
 
       - name: Build
         if: matrix.build_name != 'aarch64'
