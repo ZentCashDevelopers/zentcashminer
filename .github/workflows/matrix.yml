@@ -55,6 +55,7 @@ jobs:
         id: cuda-toolkit
         with:
           cuda: '12.1.0'
+          log-file-suffix: '${{matrix.build_name}}.txt'
           
       - name: Install Dependencies
         if: matrix.build_name != 'aarch64'
