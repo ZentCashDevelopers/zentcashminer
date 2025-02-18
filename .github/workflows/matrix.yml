@@ -203,7 +203,7 @@ jobs:
           asset_content_type: application/gzip
 
       - name: Upload To GH Artifacts
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.before_deploy.outputs.binary_name }}
           path: ./build/${{ steps.before_deploy.outputs.binary_name }}
@@ -221,9 +221,17 @@ jobs:
 
       - name: Install CUDA
         if: steps.cache.outputs.cache-hit != 'true'
+        run: choco install cuda --version=10.2 -y
+
+      - name: Reload environment variables
+        shell: powershell
         run: |
-          choco install cuda --version=10.2.89.20191206
-          refreshenv
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+          $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
+          Write-Output "PATH is now: $env:Path"
+
+      - name: Verify CUDA installation
+        run: nvcc --version
 
       - name: Install OpenSSL
         run: choco install openssl
