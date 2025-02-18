@@ -55,7 +55,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.21
         id: cuda-toolkit
         with:
-          cuda: '12.1.0'
+          cuda: '11.7.0'
           log-file-suffix: '${{matrix.build_name}}.txt'
           
       - name: Install Dependencies
@@ -101,12 +101,7 @@ jobs:
         run: |
           cd build/
           ./argon2-cpp-test
-          
-      - name: Remove existing CUDA installation
-        if: matrix.build_name != 'aarch64'      
-        run: |
-           sudo rm -rf /usr/local/cuda*       
-
+              
       - name: Prepare for Deploy
         id: before_deploy
         env:
@@ -115,10 +110,10 @@ jobs:
           if [[ "${TAG:5:4}" == "tags" ]]; then export TAG=${TAG:10}; else export TAG=${COMMIT_SHA}; fi
           cd build
           if [[ "${LABEL}" != "aarch64" ]]; then strip zentcashminer; fi
-          rm -rf zentcashminer-cuda-10-${LABEL}-${TAG}
-          mkdir zentcashminer-cuda-10-${LABEL}-${TAG}
-          cp -r zentcashminer ../README.md zentcashminer-cuda-10-${LABEL}-${TAG}/
-          tar cvfz zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-10-${LABEL}-${TAG}
+          rm -rf zentcashminer-cuda-11-${LABEL}-${TAG}
+          mkdir zentcashminer-cuda-11-${LABEL}-${TAG}
+          cp -r zentcashminer ../README.md zentcashminer-cuda-11-${LABEL}-${TAG}/
+          tar cvfz zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-11-${LABEL}-${TAG}
           ls
           pwd
           echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz
@@ -215,7 +210,7 @@ jobs:
 
   windows_build:
     name: Windows
-    runs-on: windows-2019
+    runs-on: windows-latest
     env:
       LABEL: windows
     steps:
