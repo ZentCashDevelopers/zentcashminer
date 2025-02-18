@@ -116,8 +116,8 @@ jobs:
           tar cvfz zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz zentcashminer-cuda-11-${LABEL}-${TAG}
           ls
           pwd
-          echo ::set-output name=file_name::zentcashminer-cuda-10-${LABEL}-${TAG}.tar.gz
-          echo ::set-output name=binary_name::zentcashminer-cuda-10-${LABEL}-${TAG}
+          echo ::set-output name=file_name::zentcashminer-cuda-11-${LABEL}-${TAG}.tar.gz
+          echo ::set-output name=binary_name::zentcashminer-cuda-11-${LABEL}-${TAG}
 
       - name: Upload to GH Release
         if: github.event_name == 'release' && github.repository == 'ZentCashDevelopers/zentcashminer' && matrix.deployable
@@ -140,7 +140,7 @@ jobs:
   # Mac builds on Catalina VM
   macos_build:
     name: macOS
-    runs-on: macOS-10.15
+    runs-on: macOS-13
     env:
       CC: /usr/local/opt/llvm@8/bin/clang
       CXX: /usr/local/opt/llvm@8/bin/clang++
