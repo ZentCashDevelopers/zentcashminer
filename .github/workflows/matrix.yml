@@ -55,7 +55,7 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.21
         id: cuda-toolkit
         with:
-          cuda: '11.7.0'
+          cuda: '10.2.0'
           log-file-suffix: '${{matrix.build_name}}.txt'
           
       - name: Install Dependencies
