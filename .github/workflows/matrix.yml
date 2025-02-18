@@ -153,9 +153,7 @@ jobs:
 
       - name: Dependencies
         run: |
-          brew install openssl || brew upgrade openssl
           brew install --force boost llvm@11
-          brew link --force openssl
           ln -s /usr/local/opt/openssl/include/openssl /usr/local/include
 
       - name: Configure
@@ -229,9 +227,6 @@ jobs:
           Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
           $env:Path = [System.Environment]::GetEnvironmentVariable('Path','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path','User')
           Write-Output "PATH is now: $env:Path"
-
-      - name: Verify CUDA installation
-        run: nvcc --version
 
       - name: Install OpenSSL
         run: choco install openssl
