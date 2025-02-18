@@ -2,7 +2,7 @@ name: Build
 on:
     push:
       branches:
-        - cuda-10
+        - dev
     pull_request:
     release:
         types: [published]
@@ -14,29 +14,29 @@ jobs:
   # Common Build matrix for builds on Ubuntu VM
   ubuntu_build:
     name: ${{ matrix.build_name }}
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         # Add more compilers here if you need them
-        build_name: ['Ubuntu GCC 7', 'Ubuntu GCC 8', 'Ubuntu Clang 8', 'aarch64']
+        build_name: ['Ubuntu GCC 9', 'Ubuntu GCC 10', 'Ubuntu Clang 9', 'aarch64']
         include:
-          - build_name: 'Ubuntu GCC 7'
-            package_name: 'gcc-7 g++-7'
-            cc: gcc-7
-            cxx: g++-7
-            label: linux-gcc-7
+          - build_name: 'Ubuntu GCC 9'
+            package_name: 'gcc-9 g++-9'
+            cc: gcc-9
+            cxx: g++-9
+            label: linux-gcc-9
             deployable: false
-          - build_name: 'Ubuntu GCC 8'
-            package_name: 'gcc-8 g++-8'
-            cc: gcc-8
-            cxx: g++-8
+          - build_name: 'Ubuntu GCC 10'
+            package_name: 'gcc-10 g++-10'
+            cc: gcc-10
+            cxx: g++-10
             label: linux
             deployable: true
-          - build_name: 'Ubuntu Clang 8'
-            cc: clang-8
-            cxx: clang++-8
-            label: linux-clang-8
+          - build_name: 'Ubuntu Clang 9'
+            cc: clang-9
+            cxx: clang++-9
+            label: linux-clang-9
             deployable: false
           - build_name: 'aarch64'
             label: aarch64
@@ -44,21 +44,10 @@ jobs:
     env:
       LABEL: ${{ matrix.label }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Fetch submodules
-        run: git submodule update --init --recursive
-
-      - name: Clang 8
-        if: matrix.build_name == 'Ubuntu Clang 8'
-        run: |
-           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-           sudo apt-add-repository -y "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-8 main"
-           sudo apt-get update
-           sudo apt-get install -y clang-8
-           sudo update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-8    1000
-           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-8  1000
-           clang --version         
+        run: git submodule update --init --recursive        
 
       - name: Install CUDA
         if: matrix.build_name != 'aarch64'
@@ -67,7 +56,7 @@ jobs:
           CUDA_BIN_PATH="/usr/local/cuda/bin"
           CUDA=10.1.243-1
           CUDA_SHORT=10.1.243-1
-          UBUNTU_VERSION=ubuntu1804
+          UBUNTU_VERSION=ubuntu2004
           INSTALLER=cuda-repo-${UBUNTU_VERSION}_${CUDA}_amd64.deb
           wget http://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/${INSTALLER}
           wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/3bf863cc.pub
