@@ -34,6 +34,7 @@ jobs:
             label: linux
             deployable: true
           - build_name: 'Ubuntu Clang 9'
+            package_name: 'clang-9'
             cc: clang-9
             cxx: clang++-9
             label: linux-clang-9
