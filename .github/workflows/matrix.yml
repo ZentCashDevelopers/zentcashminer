@@ -49,11 +49,6 @@ jobs:
       - name: Fetch submodules
         run: git submodule update --init --recursive
         
-      - name: Remove existing CUDA installation
-        if: matrix.build_name != 'aarch64'      
-        run: |
-           sudo rm -rf /usr/local/cuda*
-
       - name: Install CUDA
         if: matrix.build_name != 'aarch64'
         uses: Jimver/cuda-toolkit@v0.2.21
@@ -104,6 +99,11 @@ jobs:
         run: |
           cd build/
           ./argon2-cpp-test
+          
+      - name: Remove existing CUDA installation
+        if: matrix.build_name != 'aarch64'      
+        run: |
+           sudo rm -rf /usr/local/cuda*       
 
       - name: Prepare for Deploy
         id: before_deploy
