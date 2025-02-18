@@ -51,25 +51,18 @@ jobs:
 
       - name: Install CUDA
         if: matrix.build_name != 'aarch64'
+        uses: Jimver/cuda-toolkit@v0.2.9
+        id: cuda-toolkit
+        with:
+          cuda: '12.1.0'
+          
+      - name: Install Dependencies
+        if: matrix.build_name != 'aarch64'
         run: |
-          CUDA_PATH="/usr/local/cuda"
-          CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA_SHORT=11-8
-          CUDA_URL=11.8.0
-          CUDA=11.8.0-520.61.05-1
-          UBUNTU_VERSION=ubuntu2204
-          INSTALLER=cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local_${CUDA}_amd64.deb
-          wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/cuda-${UBUNTU_VERSION}.pin
-          sudo mv cuda-${UBUNTU_VERSION}.pin /etc/apt/preferences.d/cuda-repository-pin-600
-          wget https://developer.download.nvidia.com/compute/cuda/${CUDA_URL}/local_installers/cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local_${CUDA}_amd64.deb
-          sudo dpkg -i ${INSTALLER}
-          sudo cp /var/cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local/cuda-*-keyring.gpg /usr/share/keyrings/
-          sudo apt-get update
-          sudo apt-get -y install cuda
-          sudo apt clean
-          CUDACXX=/usr/local/cuda/bin/nvcc
-          /usr/local/cuda/bin/nvcc --version
-
+          echo "Installed cuda version is: ${{steps.cuda-toolkit.outputs.cuda}}"
+          echo "Cuda install location: ${{steps.cuda-toolkit.outputs.CUDA_PATH}}"
+          nvcc -V
+      
       - name: Install Dependencies
         if: matrix.build_name != 'aarch64'
         run: |
