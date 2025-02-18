@@ -61,6 +61,7 @@ jobs:
           wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/3bf863cc.pub
           sudo apt-key add 3bf863cc.pub
           sudo dpkg -i ${INSTALLER}
+          sudo apt-get install -f
           sudo apt update -qq
           sudo apt install -y cuda
           sudo apt clean
