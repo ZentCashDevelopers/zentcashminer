@@ -51,7 +51,7 @@ jobs:
 
       - name: Install CUDA
         if: matrix.build_name != 'aarch64'
-        uses: Jimver/cuda-toolkit@v0.2.9
+        uses: Jimver/cuda-toolkit@v0.2.21
         id: cuda-toolkit
         with:
           cuda: '12.1.0'
