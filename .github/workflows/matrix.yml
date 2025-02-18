@@ -54,9 +54,9 @@ jobs:
         run: |
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA_SHORT=11-7
-          CUDA_URL=11.7.0
-          CUDA=11.7.0-515.43.04-1
+          CUDA_SHORT=11-8
+          CUDA_URL=11.8.0
+          CUDA=11.8.0-520.61.05-1
           UBUNTU_VERSION=ubuntu2204
           INSTALLER=cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local_${CUDA}_amd64.deb
           wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/cuda-${UBUNTU_VERSION}.pin
@@ -65,7 +65,6 @@ jobs:
           sudo dpkg -i ${INSTALLER}
           sudo cp /var/cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local/cuda-*-keyring.gpg /usr/share/keyrings/
           sudo apt-get update
-          sudo apt-get --reinstall install nvidia-dkms-515 cuda-drivers-515
           sudo apt-get -y install cuda
           sudo apt clean
           CUDACXX=/usr/local/cuda/bin/nvcc
