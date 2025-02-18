@@ -65,7 +65,7 @@ jobs:
           sudo dpkg -i ${INSTALLER}
           sudo cp /var/cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local/cuda-*-keyring.gpg /usr/share/keyrings/
           sudo apt-get update
-          sudo apt-get -f install
+          sudo apt-get --reinstall install nvidia-dkms-515 cuda-drivers-515
           sudo apt-get -y install cuda
           sudo apt clean
           CUDACXX=/usr/local/cuda/bin/nvcc
