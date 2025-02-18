@@ -54,16 +54,18 @@ jobs:
         run: |
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
-          CUDA=11-7_11.7.0-1
+          CUDA_SHORT=11-7
+          CUDA_URL=11.7.0
+          CUDA=11.7.0-515.43.04-1
           UBUNTU_VERSION=ubuntu2204
-          INSTALLER=cuda-${CUDA}_amd64.deb
-          wget http://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/${INSTALLER}
-          wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/3bf863cc.pub
-          sudo apt-key add 3bf863cc.pub
+          INSTALLER=cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local_${CUDA}_amd64.deb
+          wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/cuda-${UBUNTU_VERSION}.pin
+          sudo mv cuda-${UBUNTU_VERSION}.pin /etc/apt/preferences.d/cuda-repository-pin-600
+          wget https://developer.download.nvidia.com/compute/cuda/${CUDA_URL}/local_installers/cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local_${CUDA}_amd64.deb
           sudo dpkg -i ${INSTALLER}
-          sudo apt-get install -f
-          sudo apt update -qq
-          sudo apt install -y cuda
+          sudo cp /var/cuda-repo-cuda-repo-${UBUNTU_VERSION}-${CUDA_SHORT}-local/cuda-*-keyring.gpg /usr/share/keyrings/
+          sudo apt-get update
+          sudo apt-get -y install cuda
           sudo apt clean
           CUDACXX=/usr/local/cuda/bin/nvcc
           /usr/local/cuda/bin/nvcc --version
