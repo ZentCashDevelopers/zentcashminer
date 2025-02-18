@@ -55,8 +55,7 @@ jobs:
           CUDA_PATH="/usr/local/cuda"
           CUDA_BIN_PATH="/usr/local/cuda/bin"
           CUDA=11-7_11.7.0-1
-          CUDA_SHORT=10.1.243-1
-          UBUNTU_VERSION=ubuntu2004
+          UBUNTU_VERSION=ubuntu2204
           INSTALLER=cuda-${CUDA}_amd64.deb
           wget http://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/${INSTALLER}
           wget https://developer.download.nvidia.com/compute/cuda/repos/${UBUNTU_VERSION}/x86_64/3bf863cc.pub
