@@ -36,7 +36,7 @@ struct NvidiaDevice
     uint32_t noncesPerRound = 0;
 
     /* Multiplier to decide how much memory / threads to launch. 0-100. */
-    float intensity = 60.0;
+    float intensity = 90.0;
 
     /* Determines how much we sleep between kernel launches. Helps the desktop
      * not be such a laggy POS while mining. */
@@ -55,7 +55,7 @@ struct AmdDevice
 
     uint32_t noncesPerRound = 0;
 
-    float intensity = 60.0;
+    float intensity = 90.0;
 
     float desktopLag = 100.0;
 };
