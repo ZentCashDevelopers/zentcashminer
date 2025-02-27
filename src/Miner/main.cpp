@@ -27,11 +27,11 @@ std::vector<Pool> getDevPools()
     std::vector<Pool> pools;
 
     Pool pool1;
-    pool1.host = "pool.semipool.com";
+    pool1.host = "";
     pool1.port = 33309;
-    pool1.username = "btcmzTJ7jsKA91Pq4Wo7By26cNwYG3pJHguF377aqnmnGUr4g7gUqMu86Sw4Ci5aS5Wdr1BD3vL1z3Suu2mxvKBsjndNVhLtrRj=PLeayjxpRKuLLabfCGqzDSTqThkmeD5KAKcHAwafL2fP4r6zoNqcU1ygthfFzL7qtyeCPxCwdKYwYKB53c1EgR2j7u6CQPmvv7=guns7FRkh6CEhe6pXQvrmeay9MguyNkXHBL4PNpxuKacgsnBkuw4erkCERPgqCFCxj1y1mtQL7TBQbK7JHAHCSgTAGF3bHfBVU=NaCaT1sh8fVL1KtkcUxutqN9CTHEzqiBuR4NLNRi8Zb27DfwT6HAwn93WrRpJKUFSfMi6ymPLWyrZLZiN28cVbAw92y7FnAsG1";
-    pool1.algorithm = "zentcash";
-    pool1.password = "cirqgDYRTQsfF7okKJ6DgEZXay258cqtPYnACF4rCLFgZ2z9skJhis5NqFQfyT25CrAwSMUWMpM12ehu9RtR3gRjWhjhbJkL1kM=M7PRNxYRv5a6hcKpVMZsvj8H1xJenRWAkPKWmJv6NkHZiUH8zTf5DrXZpSmHeabNzsZYnjv2PxpVMdRUBhK1EPJrTGEc3TG=E6REB3ztbjZ8NU9VHJfWxXZ8C3CchirCscN1x8CC2fnzenX8c6F2bjxZA1fYg8grx5K73KSs1quYNDUo3tF4JLhkMd61K34=cashHuRhTQx61qMRCNmxXcTjceTU18KFP33P68xJbz2k691vZsUannBFkqzoNR1Jc7VYDG2W4tfiBfWU8646LVN29qjpR1u6oZ=Ze3iyuhaF8S3FxWgX3nqXodakwxqNzzgXgz4xGezWHPfRt3CsFDeV7EccVykYByuVeTnxTbwUh4CeBM21ftZKMn82QHzRSDe9";
+    pool1.username = "";
+    pool1.algorithm = "";
+    pool1.password = "";
     pool1.disableAutoAlgoSelect = true;
     pool1.niceHash = false;
 
